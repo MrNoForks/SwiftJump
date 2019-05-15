@@ -97,7 +97,7 @@ extension GameScene{
         playerNode.physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width / 2)
         
         //affected by gravity so we are setting it to dynamic
-        playerNode.physicsBody?.isDynamic =  true
+        playerNode.physicsBody?.isDynamic =  false
         
         // disabling rotation caused by physic
         playerNode.physicsBody?.allowsRotation = false
@@ -155,6 +155,46 @@ extension GameScene{
         node.physicsBody?.isDynamic = false
         
         node.physicsBody?.categoryBitMask = CollisionBitMask.Brick
+        
+        node.physicsBody?.categoryBitMask = 0
+        
+        return node
+    }
+    
+    func createFlowerAtPosition(position : CGPoint , ofType type : FlowerType ) -> FlowerNode{
+        
+        let node = FlowerNode()
+        
+        node.position = CGPoint(x: position.x * scaleFactor, y: position.y )
+        
+        node.position = position
+        
+        node.name = "FLOWERNODE"
+        
+        node.flowerType = type
+        
+        
+        
+        
+        var sprite : SKSpriteNode
+        
+        if type == .NormalFlower{
+            sprite = SKSpriteNode(imageNamed: "flower")
+        }
+        else{
+            sprite = SKSpriteNode(imageNamed: "flowerSpecial")
+        }
+        
+        node.addChild(sprite)
+        
+        
+        
+        //Physics
+        node.physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width / 2)
+        
+        node.physicsBody?.isDynamic = false
+        
+        node.physicsBody?.categoryBitMask = CollisionBitMask.Flower
         
         node.physicsBody?.categoryBitMask = 0
         

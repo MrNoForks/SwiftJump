@@ -1,5 +1,5 @@
 //
-//  PlatformNode.swift
+//  FlowerNode.swift
 //  SwiftJump
 //
 //  Created by Boppo Technologies on 15/05/19.
@@ -8,15 +8,16 @@
 
 import SpriteKit
 
-enum PlatformType : Int{
+enum FlowerType : Int{
     
-    case normalBrick = 0
+    case NormalFlower = 0
     
-    case breakableBrick = 1
+    case SpecialFlower = 1
 }
 
-class PlatformNode: GenericNode {
 
-    var platformType : PlatformType!
+class FlowerNode : GenericNode{
+    
+    var flowerType : FlowerType!
     
 }

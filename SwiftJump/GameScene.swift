@@ -67,7 +67,8 @@ class GameScene: SKScene {
         let platform = createPlatformAtPosition(position: CGPoint(x: 160, y: 320), ofType: .normalBrick)
         foreground.addChild(platform)
         
-        
+        let flower =  createFlowerAtPosition(position: CGPoint(x: 160, y: 220), ofType: .SpecialFlower)
+        foreground.addChild(flower)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -82,7 +83,10 @@ class GameScene: SKScene {
     
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-
+        
+        player.physicsBody?.isDynamic = true
+        
+        player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 20))
     }
     
 
