@@ -57,6 +57,17 @@ class GameScene: SKScene {
         
         midground = createMidground()
         addChild(midground)
+        
+        foreground = SKNode()
+        addChild(foreground)
+        
+        player = createPlayer()
+        foreground.addChild(player)
+        
+        let platform = createPlatformAtPosition(position: CGPoint(x: 160, y: 320), ofType: .normalBrick)
+        foreground.addChild(platform)
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

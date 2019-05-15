@@ -19,7 +19,7 @@ extension GameScene{
         let spacing : CGFloat = 64 * scaleFactor
         
         //Mark:- Format type and Custom String using format
-        for index in 0...0 {
+        for index in 0...19 {
             let node = SKSpriteNode(imageNamed: String(format: "Background%02d", index+1))
             
             node.setScale(scaleFactor)
@@ -44,7 +44,7 @@ extension GameScene{
         
         
         
-        for index in 0 ... 9 {
+        for index in 0 ... 19 {
             
             var name : String!
             
@@ -91,7 +91,74 @@ extension GameScene{
         let sprite = SKSpriteNode(imageNamed: "Player")
         
         playerNode.addChild(sprite)
-
+        
+        // Adding Physics
+        
+        playerNode.physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width / 2)
+        
+        //affected by gravity so we are setting it to dynamic
+        playerNode.physicsBody?.isDynamic =  true
+        
+        // disabling rotation caused by physic
+        playerNode.physicsBody?.allowsRotation = false
+        
+        // for letting node not lose its momentum
+        playerNode.physicsBody?.restitution = 1
+        
+        playerNode.physicsBody?.friction = 0
+        playerNode.physicsBody?.angularDamping = 0
+        playerNode.physicsBody?.linearDamping = 0
+        
+        playerNode.physicsBody?.usesPreciseCollisionDetection = true
+        
+        playerNode.physicsBody?.categoryBitMask = CollisionBitMask.Player
+        
+        //This says spriteKit we dont want to simulate any collision for the player
+        playerNode.physicsBody?.collisionBitMask = 0
+        
+        playerNode.physicsBody?.contactTestBitMask = CollisionBitMask.Flower | CollisionBitMask.Brick
+        
         return playerNode
     }
+    
+    func createPlatformAtPosition(position : CGPoint , ofType type : PlatformType ) -> PlatformNode{
+       
+        let node = PlatformNode()
+        
+        node.position = CGPoint(x: position.x * scaleFactor, y: position.y )
+        
+        node.position = position
+        
+        node.name = "PLATFORMNODE"
+        
+        node.platformType = type
+        
+        
+        
+        
+        var sprite : SKSpriteNode
+        
+        if type == .normalBrick{
+            sprite = SKSpriteNode(imageNamed: "Platform")
+        }
+        else{
+            sprite = SKSpriteNode(imageNamed: "PlatformBreak")
+        }
+        
+        node.addChild(sprite)
+        
+        
+        
+        //Physics
+        node.physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
+        
+        node.physicsBody?.isDynamic = false
+        
+        node.physicsBody?.categoryBitMask = CollisionBitMask.Brick
+        
+        node.physicsBody?.categoryBitMask = 0
+        
+        return node
+    }
 }
+
