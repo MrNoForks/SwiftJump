@@ -20,4 +20,15 @@ class FlowerNode : GenericNode{
     
     var flowerType : FlowerType!
     
+    override func collisionWithPlayer(player: SKNode) -> Bool {
+        
+        //Boosting player  up by 400
+        player.physicsBody?.velocity = CGVector(dx: player.physicsBody!.velocity.dx, dy: 400)
+        
+        //removing flower 
+        self.removeFromParent()
+        
+        return true
+    }
+    
 }

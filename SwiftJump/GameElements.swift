@@ -156,7 +156,7 @@ extension GameScene{
         
         node.physicsBody?.categoryBitMask = CollisionBitMask.Brick
         
-        node.physicsBody?.categoryBitMask = 0
+        node.physicsBody?.collisionBitMask = 0
         
         return node
     }
@@ -196,7 +196,7 @@ extension GameScene{
         
         node.physicsBody?.categoryBitMask = CollisionBitMask.Flower
         
-        node.physicsBody?.categoryBitMask = 0
+        node.physicsBody?.collisionBitMask = 0
         
         return node
     }

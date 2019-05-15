@@ -11,7 +11,7 @@ import GameplayKit
 import CoreMotion
 
 
-class GameScene: SKScene {
+class GameScene: SKScene ,SKPhysicsContactDelegate{
     
     var background : SKNode!
     var midground  : SKNode!
@@ -69,11 +69,31 @@ class GameScene: SKScene {
         
         let flower =  createFlowerAtPosition(position: CGPoint(x: 160, y: 220), ofType: .SpecialFlower)
         foreground.addChild(flower)
+        
+        //speed of gravity
+        physicsWorld.gravity = CGVector(dx: 0, dy: -2)
+        
+        physicsWorld.contactDelegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        
+        var otherNode : SKNode!
+        
+        if contact.bodyA.node != player{
+            otherNode = contact.bodyA.node
+        }
+        else{
+            otherNode = contact.bodyB.node
+        }
+        
+        
+        (otherNode as! GenericNode).collisionWithPlayer(player: player)
     }
     
     override func didMove(to view: SKView) {
