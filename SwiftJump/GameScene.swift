@@ -85,6 +85,36 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         hud.addChild(startButton)
         
         
+        
+        let flower = SKSpriteNode(imageNamed: "flower")
+        
+        flower.position = CGPoint(x: 25, y: self.size.height - 30)
+        
+        hud.addChild(flower)
+        
+        
+        flowerLabel = SKLabelNode(fontNamed: "AmericanTypewriter-Bold")
+        flowerLabel.fontSize = 30
+        flowerLabel.fontColor = SKColor.white
+        flowerLabel.position = CGPoint(x: 50, y: self.size.height-40)
+        flowerLabel.horizontalAlignmentMode = .left
+        
+        flowerLabel.text = " \(GameHandler.sharedInstance.flowers)"
+        hud.addChild(flowerLabel)
+        
+        
+        scorelabel = SKLabelNode(fontNamed: "AmericanTypewriter-Bold")
+        scorelabel.fontSize = 30
+        scorelabel.fontColor = SKColor.white
+        scorelabel.position = CGPoint(x: self.size.width-20, y: self.size.height-40)
+        scorelabel.horizontalAlignmentMode = .right
+        
+        scorelabel.text = "0"
+        hud.addChild(scorelabel)
+        
+        
+        
+        
         //MARK:- Extracting data from NSDictionary of plist that was in GameHandler
         //Dictionary
         let platforms = levelData["Platforms"] as! NSDictionary
@@ -134,11 +164,11 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         }
         
         //Dictionary
-        let flower = levelData["Flowers"] as! NSDictionary
+        let flowers = levelData["Flowers"] as! NSDictionary
         //Dictionary
-        let flowerPatterns = flower["Patterns"] as! NSDictionary
+        let flowerPatterns = flowers["Patterns"] as! NSDictionary
         //Array which contains dictionary so [NSDictionary]
-        let flowerPositions = flower["Positions"] as! [NSDictionary]
+        let flowerPositions = flowers["Positions"] as! [NSDictionary]
         
         //iterating through array of Positions
         for flowerPosition in flowerPositions{
@@ -226,6 +256,8 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     
     func didBegin(_ contact: SKPhysicsContact) {
         
+        var updateHUD = false
+        
         var otherNode : SKNode!
         
         if contact.bodyA.node != player{
@@ -235,8 +267,12 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
             otherNode = contact.bodyB.node
         }
         
+        updateHUD = (otherNode as! GenericNode).collisionWithPlayer(player: player)
         
-        (otherNode as! GenericNode).collisionWithPlayer(player: player)
+        if updateHUD{
+            flowerLabel.text = " \(GameHandler.sharedInstance.flowers)"
+            scorelabel.text = "\(GameHandler.sharedInstance.score)"
+        }
     }
     
     override func didMove(to view: SKView) {
@@ -282,5 +318,33 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
             midground.position = CGPoint(x: 0, y: -(player.position.y - 200)/4)
             foreground.position = CGPoint(x: 0, y: -(player.position.y - 200))
         }
+        
+        if Int(player.position.y) > currentMaxY {
+            GameHandler.sharedInstance.score += Int(player.position.y) - currentMaxY
+            currentMaxY = Int(player.position.y)
+            
+            scorelabel.text = "\(GameHandler.sharedInstance.score)"
+        }
+        
+        if Int(player.position.y) > endOfGamePosition{
+            endGame()
+        }
+        
+        if Int(player.position.y) < currentMaxY - 800 {
+            endGame()
+        }
+        
+        
+    }
+    
+    func endGame(){
+        gameOver = true
+        GameHandler.sharedInstance.saveGameStats()
+        
+        let transtion = SKTransition.fade(withDuration: 0.5)
+        let endGameScene = EndGame(size : self.size)
+        
+        self.view?.presentScene(endGameScene,transition: transtion)
+        
     }
 }

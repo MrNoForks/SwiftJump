@@ -25,6 +25,9 @@ class FlowerNode : GenericNode{
         //Boosting player  up by 400
         player.physicsBody?.velocity = CGVector(dx: player.physicsBody!.velocity.dx, dy: 400)
         
+        GameHandler.sharedInstance.score += (flowerType == FlowerType.NormalFlower ? 20 : 100)
+        GameHandler.sharedInstance.flowers += (flowerType == FlowerType.NormalFlower ? 1 : 5)
+        
         //removing flower 
         self.removeFromParent()
         

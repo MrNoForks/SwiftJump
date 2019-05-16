@@ -48,7 +48,7 @@ class GameHandler {
         }
     }
     
-    func saveGameState(){
+    func saveGameStats(){
         
         highScore = max(score,highScore)
         

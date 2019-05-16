@@ -61,6 +61,7 @@
 		6B4D3464228C271A00073CBB /* PlatformNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D3463228C271A00073CBB /* PlatformNode.swift */; };
 		6B4D3466228C2AED00073CBB /* FlowerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D3465228C2AED00073CBB /* FlowerNode.swift */; };
 		6BD4FE40228D2FCD00A867A7 /* GameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD4FE3F228D2FCD00A867A7 /* GameHandler.swift */; };
+		6BD4FE42228D6FE300A867A7 /* EndGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD4FE41228D6FE300A867A7 /* EndGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +121,7 @@
 		6B4D3463228C271A00073CBB /* PlatformNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformNode.swift; sourceTree = "<group>"; };
 		6B4D3465228C2AED00073CBB /* FlowerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerNode.swift; sourceTree = "<group>"; };
 		6BD4FE3F228D2FCD00A867A7 /* GameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHandler.swift; sourceTree = "<group>"; };
+		6BD4FE41228D6FE300A867A7 /* EndGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 			children = (
 				6B10F292228BE23200B59B07 /* AppDelegate.swift */,
 				6B10F298228BE23200B59B07 /* GameScene.swift */,
+				6BD4FE41228D6FE300A867A7 /* EndGame.swift */,
 				6B10F301228BE96400B59B07 /* GameElements.swift */,
 				6B4D3461228C23E200073CBB /* GenericNode.swift */,
 				6B4D3465228C2AED00073CBB /* FlowerNode.swift */,
@@ -333,6 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BD4FE42228D6FE300A867A7 /* EndGame.swift in Sources */,
 				6B10F302228BE96400B59B07 /* GameElements.swift in Sources */,
 				6B10F299228BE23200B59B07 /* GameScene.swift in Sources */,
 				6B10F29B228BE23200B59B07 /* GameViewController.swift in Sources */,
