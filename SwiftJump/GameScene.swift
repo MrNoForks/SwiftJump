@@ -51,6 +51,9 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         //scaleFactor = size of screen width / size of image width
         scaleFactor = self.size.width / 320
         
+        let levelData = GameHandler.sharedInstance.levelData
+        
+        
         background = createBackground()
         
         addChild(background)
