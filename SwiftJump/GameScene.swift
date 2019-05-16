@@ -238,5 +238,27 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        
+        foreground.enumerateChildNodes(withName: "PLATFORMNODE") { (node, stop) in
+            
+            let platform = node as! PlatformNode
+            
+            platform.shouldRemoveNode(playerY: self.player.position.y)
+        }
+        
+        foreground.enumerateChildNodes(withName: "FLOWERNODE") { (node, stop) in
+            
+            let flower = node as! FlowerNode
+            
+            flower.shouldRemoveNode(playerY: self.player.position.y)
+        }
+        
+        
+        if player.position.y > 200{
+            // Different divides for parallel effect so all layers move in different speed
+            background.position = CGPoint(x: 0, y: -(player.position.y - 200)/10)
+            midground.position = CGPoint(x: 0, y: -(player.position.y - 200)/4)
+            foreground.position = CGPoint(x: 0, y: -(player.position.y - 200))
+        }
     }
 }
