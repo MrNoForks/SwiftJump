@@ -42,7 +42,7 @@ class GameHandler {
         //Mark:-  Extracting data fromn Plist
         if let path = Bundle.main.path(forResource: "Level01", ofType: "plist"){
             
-            if let level = NSDictionary(contentsOfFile: "path"){
+            if let level = NSDictionary(contentsOfFile: path){
                 levelData = level
             }
         }
