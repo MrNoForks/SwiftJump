@@ -27,7 +27,7 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     
     var scaleFactor : CGFloat!
     
-    var startButton = SKSpriteNode(fileNamed: "TapToStart")
+    var startButton = SKSpriteNode(imageNamed: "TapToStart")
     
     var endOfGamePosition = 0
     
@@ -43,6 +43,9 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     var gameOver = false 
     
     
+    
+    var currentMaxY : Int!
+    
     override init(size : CGSize){
         super.init(size : size)
         
@@ -53,6 +56,12 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         
         let levelData = GameHandler.sharedInstance.levelData!
         
+        currentMaxY = 80
+        GameHandler.sharedInstance.score = 0
+        gameOver = false
+        
+        endOfGamePosition = levelData["EndOfLevel"] as! Int
+
         
         background = createBackground()
         
@@ -66,6 +75,15 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
         
         player = createPlayer()
         foreground.addChild(player)
+        
+        hud = SKNode()
+        
+        addChild(hud)
+        
+        startButton.position = CGPoint(x: self.size.width/2, y: 180)
+        
+        hud.addChild(startButton)
+        
         
         //MARK:- Extracting data from NSDictionary of plist that was in GameHandler
         //Dictionary
@@ -228,6 +246,10 @@ class GameScene: SKScene ,SKPhysicsContactDelegate{
     
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        if player.physicsBody!.isDynamic{return}
+        
+        startButton.removeFromParent()
         
         player.physicsBody?.isDynamic = true
         
